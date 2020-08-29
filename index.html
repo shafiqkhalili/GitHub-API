@@ -37,6 +37,45 @@
   </head>
   <body>
     <div class="container">
+      <!-- News jumbotron -->
+      <div class="jumbotron text-center hoverable p-4">
+        <!-- Grid row -->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-4 offset-md-1 mx-3 my-3">
+            <!-- Featured image -->
+            <div class="view overlay">
+              <img id="user-photo" src="" class="img-fluid" alt="User Avatar" />
+              <a>
+                <div class="mask rgba-white-slight"></div>
+              </a>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-7 text-md-left ml-3 mt-3">
+            <!-- Excerpt -->
+
+            <h4 class="h4 mb-4">Shafigh Khalili</h4>
+
+            <p class="font-weight-normal">
+              List of my GitHub repositories fetched using GitHub API
+            </p>
+
+            <a class="btn btn-info"
+              ><i
+                style="font-size: 1.5rem"
+                class="devicon-github-plain-wordmark colored"
+              ></i>
+              Go To GitHub</a
+            >
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+      <!-- News jumbotron -->
       <div class="row">
         <div class="col-sm-12">
           <table
@@ -91,12 +130,22 @@
       }
       async function getRepos() {
         let tableBody = document.getElementById("reposTable");
+        let userImg = document.getElementById("user-photo");
+
         let url =
           "https://api.github.com/users/shafiqkhalili/repos?sort=created&order=desc";
         let respons = await fetch(url);
         let result = await respons.json();
-        console.table(result.items);
+
         result.forEach((repository) => {
+          let imgUrl =
+            repository.owner.avatar_url !== null
+              ? repository.owner.avatar_url
+              : "";
+
+          userImg.src = imgUrl;
+
+          console.log("src: " + userImg.src);
           let row = document.createElement("tr");
 
           // console.log(element);
